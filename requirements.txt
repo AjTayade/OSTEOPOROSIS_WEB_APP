@@ -3,7 +3,7 @@ numpy
 scikit-learn
 matplotlib
 seaborn
-scipy
+scipy==1.12.0
 statsmodels
 flask
 werkzeug
