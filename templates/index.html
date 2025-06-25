@@ -1,28 +1,100 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Osteoporosis Predictor</title>
+    <meta charset="UTF-8">
+    <title>Osteoporosis Risk Predictor</title>
 </head>
 <body>
-    <h2>Check Your Osteoporosis Risk</h2>
+    <h1>Check Your Risk for Osteoporosis</h1>
     <form method="POST">
-        {% for f in feature_list %}
-            <label>{{ f }}:</label>
-            <input type="text" name="{{ f }}" required><br>
-        {% endfor %}
+        <label>Age:</label>
+        <input type="number" name="Age" min="18" max="100" required><br><br>
+
+        <label>Gender:</label>
+        <select name="Gender" required>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+        </select><br><br>
+
+        <label>Hormonal Changes:</label>
+        <select name="Hormonal Changes" required>
+            <option value="Normal">Normal</option>
+            <option value="Postmenopausal">Postmenopausal</option>
+        </select><br><br>
+
+        <label>Family History:</label>
+        <select name="Family History" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br><br>
+
+        <label>Race/Ethnicity:</label>
+        <select name="Race/Ethnicity" required>
+            <option value="African American">African American</option>
+            <option value="Asian">Asian</option>
+            <option value="Caucasian">Caucasian</option>
+        </select><br><br>
+
+        <label>Body Weight:</label>
+        <select name="Body Weight" required>
+            <option value="Normal">Normal</option>
+            <option value="Underweight">Underweight</option>
+        </select><br><br>
+
+        <label>Calcium Intake:</label>
+        <select name="Calcium Intake" required>
+            <option value="Adequate">Adequate</option>
+            <option value="Low">Low</option>
+        </select><br><br>
+
+        <label>Vitamin D Intake:</label>
+        <select name="Vitamin D Intake" required>
+            <option value="Sufficient">Sufficient</option>
+            <option value="Insufficient">Insufficient</option>
+        </select><br><br>
+
+        <label>Physical Activity:</label>
+        <select name="Physical Activity" required>
+            <option value="Active">Active</option>
+            <option value="Sedentary">Sedentary</option>
+        </select><br><br>
+
+        <label>Smoking:</label>
+        <select name="Smoking" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br><br>
+
+        <label>Alcohol Consumption:</label>
+        <select name="Alcohol Consumption" required>
+            <option value="Moderate">Moderate</option>
+            <option value="None">None</option>
+        </select><br><br>
+
+        <label>Medical Conditions:</label>
+        <select name="Medical Conditions" required>
+            <option value="Rheumatoid Arthritis">Rheumatoid Arthritis</option>
+            <option value="Hyperthyroidism">Hyperthyroidism</option>
+            <option value="None">None</option>
+        </select><br><br>
+
+        <label>Medications:</label>
+        <select name="Medications" required>
+            <option value="Corticosteroids">Corticosteroids</option>
+            <option value="None">None</option>
+        </select><br><br>
+
+        <label>Prior Fractures:</label>
+        <select name="Prior Fractures" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br><br>
+
         <button type="submit">Predict</button>
     </form>
 
     {% if prediction %}
-        <h3>Prediction: {{ prediction }}</h3>
+        <h2>{{ prediction }}</h2>
     {% endif %}
-
-    <h4>Model Performance:</h4>
-    <ul>
-        {% for key, value in metrics.items() %}
-            <li>{{ key }}: {{ value }}</li>
-        {% endfor %}
-    </ul>
 </body>
 </html>
