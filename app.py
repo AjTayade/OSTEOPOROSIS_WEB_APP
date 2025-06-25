@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from model import load_and_train
 import numpy as np
+import os
 
 app = Flask(__name__)
 model, scaler, feature_list, metrics = load_and_train()
@@ -19,5 +20,8 @@ def index():
 
     return render_template('index.html', prediction=prediction, metrics=metrics, feature_list=feature_list)
 
+import os
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
