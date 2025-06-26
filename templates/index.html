@@ -2,99 +2,205 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Osteoporosis Risk Predictor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osteoporosis Risk Predictor - New</title>
+    <!-- Include Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .form-select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        /* Custom style for disabled dropdown */
+        .form-select:disabled {
+            background-color: #f3f4f6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    </style>
 </head>
-<body>
-    <h1>Check Your Risk for Osteoporosis</h1>
-    <form method="POST">
-        <label>Age:</label>
-        <input type="number" name="Age" min="18" max="100" required><br><br>
+<body class="bg-gray-100 text-gray-900">
 
-        <label>Gender:</label>
-        <select name="Gender" required>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-        </select><br><br>
+    <div class="container mx-auto px-4 py-8 md:py-12 max-w-3xl">
+        
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800">Osteoporosis Prediction</h1>
+            <p class="text-gray-600 mt-3 text-lg">Provide your details to assess your risk.</p>
+        </header>
 
-        <label>Hormonal Changes:</label>
-        <select name="Hormonal Changes" required>
-            <option value="Normal">Normal</option>
-            <option value="Postmenopausal">Postmenopausal</option>
-        </select><br><br>
+        <!-- Prediction Form -->
+        <main class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+            <form method="POST" action="/"> <!-- The action should point to your backend endpoint -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
 
-        <label>Family History:</label>
-        <select name="Family History" required>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select><br><br>
+                    <!-- Age -->
+                    <div>
+                        <label for="Age" class="block text-sm font-semibold text-gray-700 mb-2">Age</label>
+                        <input type="number" id="Age" name="Age" min="18" max="100" required placeholder="e.g., 65" class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
 
-        <label>Race/Ethnicity:</label>
-        <select name="Race/Ethnicity" required>
-            <option value="African American">African American</option>
-            <option value="Asian">Asian</option>
-            <option value="Caucasian">Caucasian</option>
-        </select><br><br>
+                    <!-- Gender -->
+                    <div>
+                        <label for="Gender" class="block text-sm font-semibold text-gray-700 mb-2">Gender</label>
+                        <select id="Gender" name="Gender" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                        </select>
+                    </div>
 
-        <label>Body Weight:</label>
-        <select name="Body Weight" required>
-            <option value="Normal">Normal</option>
-            <option value="Underweight">Underweight</option>
-        </select><br><br>
+                    <!-- Hormonal Changes (Dynamically handled) -->
+                    <div>
+                        <label for="Hormonal_Changes" class="block text-sm font-semibold text-gray-700 mb-2">Hormonal Changes</label>
+                        <select id="Hormonal_Changes" name="Hormonal Changes" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="Postmenopausal">Postmenopausal</option>
+                            <option value="Normal">Normal</option>
+                        </select>
+                    </div>
 
-        <label>Calcium Intake:</label>
-        <select name="Calcium Intake" required>
-            <option value="Adequate">Adequate</option>
-            <option value="Low">Low</option>
-        </select><br><br>
+                    <!-- Family History -->
+                    <div>
+                        <label for="Family_History" class="block text-sm font-semibold text-gray-700 mb-2">Family History</label>
+                        <select id="Family_History" name="Family History" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
 
-        <label>Vitamin D Intake:</label>
-        <select name="Vitamin D Intake" required>
-            <option value="Sufficient">Sufficient</option>
-            <option value="Insufficient">Insufficient</option>
-        </select><br><br>
+                    <!-- Race/Ethnicity -->
+                    <div>
+                        <label for="Race_Ethnicity" class="block text-sm font-semibold text-gray-700 mb-2">Race/Ethnicity</label>
+                        <select id="Race_Ethnicity" name="Race/Ethnicity" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="Caucasian">Caucasian</option>
+                            <option value="Asian">Asian</option>
+                            <option value="African American">African American</option>
+                        </select>
+                    </div>
 
-        <label>Physical Activity:</label>
-        <select name="Physical Activity" required>
-            <option value="Active">Active</option>
-            <option value="Sedentary">Sedentary</option>
-        </select><br><br>
+                    <!-- Body Weight -->
+                    <div>
+                        <label for="Body_Weight" class="block text-sm font-semibold text-gray-700 mb-2">Body Weight</label>
+                        <select id="Body_Weight" name="Body Weight" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="Normal">Normal</option>
+                            <option value="Underweight">Underweight</option>
+                        </select>
+                    </div>
 
-        <label>Smoking:</label>
-        <select name="Smoking" required>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select><br><br>
+                    <!-- Calcium Intake -->
+                    <div>
+                        <label for="Calcium_Intake" class="block text-sm font-semibold text-gray-700 mb-2">Calcium Intake</label>
+                        <select id="Calcium_Intake" name="Calcium Intake" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="Adequate">Adequate</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Vitamin D Intake -->
+                     <div>
+                        <label for="Vitamin_D_Intake" class="block text-sm font-semibold text-gray-700 mb-2">Vitamin D Intake</label>
+                        <select id="Vitamin_D_Intake" name="Vitamin D Intake" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="Sufficient">Sufficient</option>
+                            <option value="Insufficient">Insufficient</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Physical Activity -->
+                     <div>
+                        <label for="Physical_Activity" class="block text-sm font-semibold text-gray-700 mb-2">Physical Activity</label>
+                        <select id="Physical_Activity" name="Physical Activity" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="Active">Active</option>
+                            <option value="Sedentary">Sedentary</option>
+                        </select>
+                    </div>
 
-        <label>Alcohol Consumption:</label>
-        <select name="Alcohol Consumption" required>
-            <option value="Moderate">Moderate</option>
-            <option value="None">None</option>
-        </select><br><br>
+                    <!-- Smoking -->
+                     <div>
+                        <label for="Smoking" class="block text-sm font-semibold text-gray-700 mb-2">Smoking</label>
+                        <select id="Smoking" name="Smoking" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Alcohol Consumption -->
+                     <div>
+                        <label for="Alcohol_Consumption" class="block text-sm font-semibold text-gray-700 mb-2">Alcohol Consumption</label>
+                        <select id="Alcohol_Consumption" name="Alcohol Consumption" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="None">None</option>
+                            <option value="Moderate">Moderate</option>
+                        </select>
+                    </div>
 
-        <label>Medical Conditions:</label>
-        <select name="Medical Conditions" required>
-            <option value="Rheumatoid Arthritis">Rheumatoid Arthritis</option>
-            <option value="Hyperthyroidism">Hyperthyroidism</option>
-            <option value="None">None</option>
-        </select><br><br>
+                    <!-- Medical Conditions -->
+                     <div>
+                        <label for="Medical_Conditions" class="block text-sm font-semibold text-gray-700 mb-2">Medical Conditions</label>
+                        <select id="Medical_Conditions" name="Medical Conditions" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="None">None</option>
+                            <option value="Rheumatoid Arthritis">Rheumatoid Arthritis</option>
+                             <option value="Hyperthyroidism">Hyperthyroidism</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Medications -->
+                     <div>
+                        <label for="Medications" class="block text-sm font-semibold text-gray-700 mb-2">Medications</label>
+                        <select id="Medications" name="Medications" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="None">None</option>
+                            <option value="Corticosteroids">Corticosteroids</option>
+                        </select>
+                    </div>
 
-        <label>Medications:</label>
-        <select name="Medications" required>
-            <option value="Corticosteroids">Corticosteroids</option>
-            <option value="None">None</option>
-        </select><br><br>
+                    <!-- Prior Fractures -->
+                    <div>
+                        <label for="Prior_Fractures" class="block text-sm font-semibold text-gray-700 mb-2">Prior Fractures</label>
+                        <select id="Prior_Fractures" name="Prior Fractures" required class="form-select mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="mt-10">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded-lg shadow-lg transition-transform transform hover:scale-102 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Check Risk
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
 
-        <label>Prior Fractures:</label>
-        <select name="Prior Fractures" required>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select><br><br>
+    <script>
+        // This script handles the logic for the 'Hormonal Changes' field.
+        // It disables the dropdown and sets it to 'Normal' if the user selects 'Male'.
+        
+        const genderSelect = document.getElementById('Gender');
+        const hormonalChangesSelect = document.getElementById('Hormonal_Changes');
 
-        <button type="submit">Predict</button>
-    </form>
-
-    {% if prediction %}
-        <h2>{{ prediction }}</h2>
-    {% endif %}
+        function handleGenderChange() {
+            if (genderSelect.value === 'Male') {
+                hormonalChangesSelect.value = 'Normal';
+                hormonalChangesSelect.disabled = true;
+            } else {
+                hormonalChangesSelect.disabled = false;
+            }
+        }
+        
+        // Add event listener to run the function when the gender is changed
+        genderSelect.addEventListener('change', handleGenderChange);
+        
+        // Run the function on page load to set the initial state
+        document.addEventListener('DOMContentLoaded', handleGenderChange);
+    </script>
 </body>
 </html>
